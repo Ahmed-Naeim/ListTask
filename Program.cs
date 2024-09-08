@@ -6,15 +6,18 @@
         {
             Console.WriteLine("Welcome to the List Task by Ahmed Naeim");
             Console.WriteLine("Only valid inputs are P, A, M, S, L, Q");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
 
             bool myLoop = true;
             List<int> ints = new List<int>(); 
-            int largestNum = 0;
-            int smallestNum = 0;
+            int largestNum = 0;  //to prevent complexity
+            int smallestNum = 0; //to prevent complexity
             int sum = 0;
             int mean = 0;
             int tempInput = 0;
             int searchNum = 0;
+            bool isDublicated = false;
             bool searchIsFound = false;
 
             while (myLoop)
@@ -27,12 +30,16 @@
                 Console.WriteLine("L => Display the largest number");
                 Console.WriteLine("Q => Quit");
                 Console.WriteLine(" ");
+                Console.WriteLine("============ Added Features ============");
                 Console.WriteLine("F => search for a number and return index");
                 Console.WriteLine("C => Clear the list");
+                Console.WriteLine("============ Dublciation is prevented ============");
                 Console.WriteLine("======================================================");
                 Console.WriteLine(" ");
                 Console.Write("Please enter a valid character: ");
                 char myInput = char.Parse(Console.ReadLine().ToUpper());
+                Console.WriteLine(" ");
+                Console.WriteLine("======================================================");
 
                 switch (myInput)
                 {
@@ -51,18 +58,31 @@
                             Console.Write("]");
                         }
                         Console.WriteLine(" ");
-                        Console.WriteLine("=============================");
-                        Console.WriteLine(" ");
                         break;
                     
                     case 'A':
                         Console.Write("Enter a valid integer number: ");
                         tempInput = int.Parse(Console.ReadLine());
-                        ints.Add(tempInput);
-                        Console.WriteLine($"you added {tempInput} to the list");
-                        
+                        for (int i = 0; i < ints.Count; i++)
+                        {
+                            if (ints[i] == tempInput)
+                            {
+                                isDublicated = true;
+                            }
+                        }
+                        if (isDublicated == false)
+                        {
+                            ints.Add(tempInput);
+                            Console.WriteLine($"you added {tempInput} to the list");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"the number {tempInput} is already in the list and can not be dublicated");
+                        }
+                        isDublicated = false;
+
                         //instead of complex largest and smallest algorithms
-                        if(tempInput > largestNum || ints.Count == 1)
+                        if (tempInput > largestNum || ints.Count == 1)
                         {
                             largestNum = tempInput;
                         }
@@ -70,8 +90,6 @@
                         {
                             smallestNum = tempInput;
                         }
-                        Console.WriteLine(" ");
-                        Console.WriteLine("=============================");
                         Console.WriteLine(" ");
                         break;
                     
@@ -85,23 +103,15 @@
                         Console.WriteLine($"The mean/Average equals => {mean}");
                         
                         Console.WriteLine(" ");
-                        Console.WriteLine("=============================");
-                        Console.WriteLine(" ");
                         break;
 
                     case 'S':
                         Console.WriteLine($"The smallest number in the list is {smallestNum}");
-
-                        Console.WriteLine(" ");
-                        Console.WriteLine("=============================");
                         Console.WriteLine(" ");
                         break;
 
                     case 'L':
                         Console.WriteLine($"The largest number is the list is {largestNum}");
-
-                        Console.WriteLine(" ");
-                        Console.WriteLine("=============================");
                         Console.WriteLine(" ");
                         break;
 
@@ -122,8 +132,6 @@
                             Console.WriteLine($"the number {searchNum} is not found in the list");
                         }
                         Console.WriteLine(" ");
-                        Console.WriteLine("=============================");
-                        Console.WriteLine(" ");
                         break;
 
                     case 'C':
@@ -131,8 +139,6 @@
                         smallestNum = 0;
                         largestNum = 0;
                         Console.WriteLine("the list is empty now");
-                        Console.WriteLine(" ");
-                        Console.WriteLine("=============================");
                         Console.WriteLine(" ");
                         break;
 
